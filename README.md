@@ -1,134 +1,44 @@
-![Nytro Hackathon](https://user-images.githubusercontent.com/64868886/118121274-84b6e100-b3f1-11eb-851f-e7ef3e5282d3.png)
-
-# [$3000-$10000 NYZO] Nytro Hackathon: Implementation of an application that uses the Nytro token protocol
-
-This is the repository that will be used to gather all the projects that were built for the Nytro Hackathon.
+# NFT-like Community-Driven Political Strategy Card Game (official title to be determined)
+_____ will be a community driven strategy card game with very simple rules. The idea is to completely open source every part of the card creation process by allowing our users to create their own cards within a set of rules (for balance and playability), even submitting their own artwork or commissioned artwork as metadata. We will store metadata in our own proprietary DB, but the tokens will exist on chain using Nytro protocol.
 
 
-## Prize bounty
-Up to $10000 worth of Nyzo can be earned per application for this bounty, with a minimum reward of $3000 worth of Nyzo. The correct amount will be determined by a team of judges consisting of well known Nyzo community devs and mods which will evaluate based on the following evaluation criteria:
+## How we will use the Nytro token protocol
+We will utilize a new issuance for each card token. Yes, we know this is expensive. However:
+- The basis of the application is a strategy game that can be played even without cards (though not as exciting). The cards are an 'experience enhancement', and players will be allowed to play in brackets based on their investment in unique tokens.
+- Having one or more cards allows you to enter a bracket based on the number of cards in your deck, up to 5 maximum cards (at the time of writing's conversion rates a 5 card deck would cost a little less than $300).
+- The Community-Driven aspect: each player gets to design his or her cards. This includes everything from composable effects that will alter how the game will play out, to aesthetic features like the card background image. _The end users will foot the bill for token issuance_. This will make entry expensive, but really not much more expensive than other standard "hardcore" gaming investments. We believe that this model will work despite the expense thanks to the unique yet tradeable items granted to our users.
+- Marketplace: we intend to also design a small marketplace for trading cards to one another. Trading fees will be able to match the standard nyzo fees (thanks!) 
+- proprietary currency: Time allowing, we may additionally add an elastic supply currency mintable in exchange for nyzo to buy tickets to in game events.
 
-**Minimal required criteria**:
-- Functional and meaningful app
-- Fully open source
-- Documentation
+### Additional Implementation Details
+We will generate a token name obeying the token rules based on an internal algorithm prior to issuance. Each issuance will have a total supply of just one single token. Although the issuance at the time of writing is just shy of $60 we believe that players will be willing to invest in hopes that their personal card designs will accrue value based on both the effects composed and the artwork associated. I also assume token issuance cost may decrease as Nyzo value increases.
 
-**Additional criteria**:
-- Documentation quality
-- Potential for large adoption
-- Ease of installation and operation
-- Existing community or user base and marketing
-- Originality of the concept
-- Code quality
-- UX and usability
-- Use of the existing Nyzo ecosystem
+### Concerns
+**Token namespace pollution** - Originally a concernt, however we no longer think this will be a factor - we will generate unappealing token names, namespaced by issuer and a unique integer ID. We will generate a lot of tokens, but they will have algorithmically generated names that are unlikely to be desirable to another issuer.
+**Lack of associated NFT-like data** - The card metadata will all be stored centrally by our proprietary servers. This lessens the DeFi factor somewhat, as we won't be able to know what components and images are present on a card without running it through our database first. No real workaround for this yet.
 
-At the end of the hackathon a winner will be chosen by a community vote, granting an extra $2000 Nyzo bonus prize. 2nd and 3rd place will receive an extra consolation prize of $1000 and $500 Nyzo. The bounty will be fully paid in the [Nyzo cryptocurrency](https://www.coingecko.com/en/coins/nyzo). 
+## Gameplay
+'Weighted Rock Paper Scissors' is the term that we came up with to describe the gameplay. Each turn you choose one of three statistics, each essentially a variation on Rock Paper or Scissors. Then you play RPS with your opponent. You use values weighted by the statistic that governs the RPS variant chosen. The advantageous position holds a 1.5x weight multiplier, such that a player rolling rock with a governance stat of 3 will tie paper with a governance stat of 2. The winner of a turn's RPS bout may either increment a statistic of their own or decrement a statistic of their opponent. After 5 turns, the totals of each statistic are tallied and compared to your opponent to determine the victor. Cards, much like the Nytro token protocol, build on the core of the game by changing the rules slightly to solidify a strategy.
 
-Nyzo markets are available on:
-- Gate io: https://www.gate.io/en/coininfo/NYZO
-- Qtrade: https://qtrade.io/market/NYZO_BTC
-- Hoo: https://hoo.com/spot/nyzo-usdt
+### Proposed RPS variants and stat names
+Military > Economy > Society is the RPS cycle. Military beats Economy but loses to Society, Economy beats Society but loses to Military, and Society beats Military but loses to Economy. 
 
-*The jury reserves the right not to consider a submission that would not match the minimum expected requirements. In that case the jury will specify why. The submitter will be given some time to improve and submit again to be eligible for a reward.*
+### Game End Paths
+- **Win by statistic victory threshold**: achieving a certain statistic threshold grants you the victory, at this time that threshold is presumably 7.
+- **Win by statistic disqualification**: Your opponent is disqualified if any of his or her stats falls below 1.
+- **Win by final count**: the typical game-end case. Tally and compare your points, pairing each against its weaker. Player with the most victories wins, but this may also result in a draw.
 
-*The jury also reserves the right to issue extra rewards for above-the-ordinary submissions, or suggest further rewards for extra additions to the project.*
+### Example Turn
 
+```
+T# | P1 Stats       |   P2 Stats        |   Choice      |   Result  |   Effects
+T1 | 2Mi 3So 2Ec    |   2Mi 2So 2Ec     |  3So x 2Ec    |   Draw    |   p1 card +1 starting Society pts
+T2 | 2Mi 4So 2Ec    |   2Mi 2So 3Ec     |  4So x 3Ec    |   Draw    |   
+T3 | 2Mi 5So 2Ec    |   2Mi 2So 4Ec     |  5So x 4Ec    |   P1Ec-1  |
+//Two things could happen here - player 1 could have an ace up his sleeve, so imagine T4a as one T4 scenario
+T4a| 2Mi 6So 1Ec    |   2Mi 2So 5Ec     |  P1So x P2Ec  |   P1Ec-1  |   p1 card +1 to stat immediately, chooses Ec raising 
+                                                                        Ec over 0 and wins by Societal victory
+//But P2 hasn't even played a card yet, and if P1 doesn't have another, P2 will win
+T4b| 2Mi 6So 1Ec    |   2Mi 2So 5Ec     |  P1So x P2Ec  |   P1Ec-1  |   p1 has no cards left, loses by economic disqualification.
 
-## Bounty description
-[Project Nytro](https://github.com/Open-Nyzo/Project-Nytro) is a token protocol that brings ERC20-like tokens to the [Nyzo blockchain](). This with a 7 seconds block time, fast finality and very low fees. The main requirement and goal of this bounty is to use the Nytro token protocol in an open-sourced project. Build an app, website, game, ... that uses the Nytro protocol and get rewarded for your effort! All the documentation about the protocol, tokens and code samples needed to build with Nytro is available on the [Nytro github](https://github.com/Open-Nyzo/Project-Nytro). If you have any questions, feel free to get in touch on the [official Nyzo Discord](https://discord.gg/veYdkStw).
-
-Sample code with a reference implementation written in Python can be found [here](https://github.com/Open-Nyzo/Project-Nytro/tree/main/implementations/tokens). 
-Helpers for Token creation: http://tokens.nyzo.today/helpers/
-
-
-## How to participate
-In order to have a valid entry in the hackathon, following steps must be executed:
-1. Fork the [Nytro Hackathon Github repository](https://github.com/Open-Nyzo/Nytro-Hackathon).
-2. Add a new .md file with a short abstract or project description.
-
-The deadline for registrations is July 4th 2021. This means that after this date, no new entrants to the hackathon will be allowed.
-
-
-## Submission requirements
-To earn this bounty you need to submit your open-source project by executing the following steps:
-1. Make sure you have a valid entry in the Nytro hackathon before July 4th 2021.
-2. Make sure your project meets the minimal required criteria.
-3. Create a pull request into the Nytro Hackathon Github repository before the submission deadline of August 1st 2021.
-4. Join the Nyzo discord and show off your project in the [#nytro-hackathon channel](https://discord.gg/c3dxE5C6K3).
-
-*If your project is not fully finished yet, make sure you have at least a working proof-of-concept application that meets the minimal criteria. If more work is needed to finish the project, development can always be continued after the submission deadline. Your hackathon reward will be based on the submission. A separate reward will be issued after the full implementation is delivered.*
-
-
-## Reward distribution and winner announcement date
-Rewards will be distributed shortly after your submission is reviewed by the judges. 
-
-After the submission deadline, the Nyzo community will be able to vote on their favorite project in a democratic way. Voting will end on August 8th. The top 3 projects will then be announced and receive their bonus prize.
-
-
-## About Nyzo
-Nyzo is the first blockchain based upon the Proof-of-Diversity consensus mechanism. It's a democratic, fast, scalable and highly efficient blockchain which was founded in 2018. It was built by a team of anonymous core devs and turned into a fully community-driven project with the supporting development of the core devs. The Nyzo community maintains a fund that can be used to support work and development for Nyzo, which is controlled in a democratic way by network participants. All decisions are made on-chain by voting for Nyzo Community Fund Proposals (NCFPs). A [proposal](https://forum.nyzo.community/t/ncfp-21-nytro-hackathon/390) was made and funded to host a hackathon (which this bounty is part of) to boost the adoption of the Nytro Protocol.
-
-
-### More info about Nyzo can be found in the following resources:
-- The Nyzo whitepaper: https://relay0.nyzo.co/staticWeb/nyzo.pdf)
-- The official community website: https://nyzo.io/ 
-- Discord: https://discord.gg/veYdkStw
-- Twitter: https://twitter.com/nyzo_io
-
-
-**Feel free to get in touch and if you have any questions regarding Nyzo, Nytro, the hackathon bounty on the [official Nyzo Discord](https://discord.gg/c3dxE5C6K3).**
-
-
-## Design, documentation, and explanation - a collection of links
-
-**Nyzo version Documentation:** https://tech.nyzo.co/
-
-**Team interview (highly recommended as primer):** https://medium.com/@CryptoJungle/the-understory-series-nyzo-54d394c28c8f
-
-**Proof of diversity**: https://tech.nyzo.co/proofOfDiversity
-- A google slides simplified explanation: https://docs.google.com/presentation/d/1hrXX6jgtcQYgl7qja94qnNQrFnUslKfy0V3Bed7f1QQ/edit?usp=sharing
-- Italian: https://maurocambuli.medium.com/nyzo-un-esempio-di-democrazia-e-sviluppo-tecnologico-6287d6ae27c8
-- Chinese: https://nyzo.me/f/20201019
-
-**Building a sustainable blockchain - what is the cycle fund?:**
-- Part 1: https://tech.nyzo.co/strategy/buildingNyzo1
-- Part 2: https://tech.nyzo.co/strategy/buildingNyzo2
-
-**Technical/developer stuff related to Nyzo:**
-- Release notes: https://tech.nyzo.co/releaseNotes
-- Consensus establishing: https://tech.nyzo.co/consensus
-- Message types: https://tech.nyzo.co/messages/messagetypes
-- Data formats: https://tech.nyzo.co/dataFormats
-- Preferences: https://tech.nyzo.co/scripts/preferences
-- Hierarchical deterministic (HD) wallets: https://angainordev.github.io/NyzoSpace/js/dist/index.html
-
-**Is there a premine? Who participated in the genesis block?:** https://tech.nyzo.co/genesisBlock
-
-**Nyzo team technology proposals (NTTPs):** https://tech.nyzo.co/teamTechnologyProposals
-
-**Nyzo community fund proposals (NCFPs):** https://forum.nyzo.community/c/ncfp/5
-
-**What is the coin emission rate (inflation):**
-- Equation (emission per day): https://www.desmos.com/calculator/rzukgxaabr
-- Circulation: http://client.nyzo.co/circulation
-- Actual rate may vary based on distributions from cycle funds, developers, etc. This is the verifier seed fund rate.
-
-**NYTRO - tokens on Nyzo:** https://nyzo.io/nytro/
-- Documentation: https://github.com/Open-Nyzo/Project-Nytro/blob/main/doc/nytro_protocol.pdf
-
-### Active development projects:
-- https://github.com/n-y-z-o - core Nyzo verifier / @nyzo (Dev team)
-- https://github.com/Open-Nyzo - Open-Nyzo / @NyZoSy @Monk
-- https://github.com/ThreeDotsTech - Nyzo desktop and mobile wallets / @Moco 
-- https://github.com/AngainorDev - NyzoSpace (HD wallet), projects / @Angainor
-
-
-### Trusted wallets
-- Web wallet: https://nyzo.co/wallet
-- Desktop wallet: https://github.com/ThreeDotsTech/nyzo-desktop
-- Mobile wallet: https://play.google.com/store/apps/details?id=io.threedots.nyzo_wallet
-- HD paper wallet: https://angainordev.github.io/NyzoSpace/js/dist/index.html
-
-
-
+```
