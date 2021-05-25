@@ -30,8 +30,8 @@ app.get('/token/issue/:name/:card_data', (req, res) => {
         options,
         (err, result) => {
             if(err) throw err
-            res.write(`${JSON.stringify(result, undefined, 2)}`)
-            res.send(result)
+            res.write(`${JSON.stringify(JSON.parse(result), undefined, 2)}`)
+            res.send()
         }
     )    
 })
@@ -49,8 +49,8 @@ app.get('/info', (_, res) => {
         options,
         (err, result) => {
             if(err) throw err
-            res.write(`${JSON.stringify(result, undefined, 2)}`)
-            res.send(result)
+            res.write(`${JSON.stringify(JSON.parse(result), null, 2)}`)
+            res.send()
         }
     )
 })
@@ -70,8 +70,8 @@ app.get('/token/balance/:option_query?', (req, res) => {
         options,
         (err, result) => {
             if(err) throw err
-            res.write(`${JSON.stringify(result, undefined, 2)}`)
-            res.send(result)
+            res.write(`${JSON.stringify(JSON.parse(result), undefined, 2)}`)
+            res.send()
         }
     )
 
