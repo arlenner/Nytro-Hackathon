@@ -4,7 +4,7 @@
     "description": "A card game utilizing the Nytro token protocol. An entry for the Nytro hackathon.",
     "main": "index.js",
     "scripts": {
-        "start": "webpack serve --config ./webpack.config.js --mode development",
+        "start": "webpack serve --config ./webpack.config.js --mode development & (cd server && node index.js)",
         "build": "webpack --config ./webpack.config.js --mode production"
     },
     "repository": "https://github.com/arlenner/Nytro-Hackathon.git",

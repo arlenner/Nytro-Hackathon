@@ -1,0 +1,10 @@
+{
+  "name": "nytro-cards-server",
+  "version": "1.0.0",
+  "description": "Server for Nytro-Hackathon entry, nytro-cards.",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "python-shell": "^3.0.0"
+  }
+}

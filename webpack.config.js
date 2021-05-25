@@ -17,11 +17,11 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'bundle.js',
+        filename: 'index.js',
     },
     plugins: [ 
         new HtmlWebpackPlugin({
-            title: 'Hello Webpack bundled JavaScript Project',
+            title: 'Nytro Cards',
             template: path.resolve(__dirname, './src/index.html'),
         })
     ],
