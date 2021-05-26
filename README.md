@@ -19,7 +19,8 @@ We will utilize a new issuance for each card token. Yes, we know this is expensi
 We will generate a token name obeying the token rules based on an internal algorithm prior to issuance. Each issuance will have a total supply of just one single token. Although the issuance at the time of writing is just shy of $60 we believe that players will be willing to invest in hopes that their personal card designs will accrue value based on both the effects composed and the artwork associated. I also assume token issuance cost may decrease as Nyzo value increases.
 
 ### Concerns
-**Token namespace pollution** - Originally a concernt, however we no longer think this will be a factor - we will generate unappealing token names, namespaced by issuer and a unique integer ID. We will generate a lot of tokens, but they will have algorithmically generated names that are unlikely to be desirable to another issuer.
+**Token namespace pollution** - Originally a concern, however we no longer think this will be a factor - we will generate unappealing token names, namespaced by issuer and a unique integer ID. We will generate a lot of tokens, but they will have algorithmically generated names that are unlikely to be desirable to another issuer.
+
 **Lack of associated NFT-like data** - The card metadata will all be stored centrally by our proprietary servers. This lessens the DeFi factor somewhat, as we won't be able to know what components and images are present on a card without running it through our database first. No real workaround for this yet.
 
 ## Gameplay
