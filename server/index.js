@@ -4,10 +4,11 @@ const app = express()
 const port = 3000
 const init = require('./init')
 
+const cliString = './Nyzocli/Nyzocli.py'
+
 /**
- * These are some examples I've come up with so far, they aren't fully implemented but the server should be able to run 
- * python scripts via node as long as they are in the server path...we may have to designate a folder domain for them just
- * in case.
+ * These are fully implemented! yay. Try navigating to them to see their responses.
+ * Now we just need to start processing them on the front-end
  */
 
 //startup
@@ -26,7 +27,7 @@ app.get('/token/issue/:name/:card_data', (req, res) => {
     //spawn the python process for Nyzocli, first command (python) then the parameter array.
     //we should use -j so we always get a JSON response (which we want) 
     PythonShell.run(
-        './Nyzocli/Nyzocli.py',
+        cliString,
         options,
         (err, result) => {
             if(err) throw err
@@ -45,7 +46,7 @@ app.get('/info', (_, res) => {
     }
 
     PythonShell.run(
-        './Nyzocli/Nyzocli.py',
+        cliString,
         options,
         (err, result) => {
             if(err) throw err
@@ -53,6 +54,64 @@ app.get('/info', (_, res) => {
             res.send()
         }
     )
+})
+
+//STATUS-----------------------------------------------------------------------------------------------------------
+
+app.get('/status', (req, res) => {
+    const options = {
+        args: ['-j', 'status']
+    }
+
+    PythonShell.run(
+        cliString,
+        options,
+        (err, result) => {
+            if(err) throw err
+            res.write(`${JSON.stringify(JSON.parse(result), undefined, 2)}`)
+            res.send()
+        }
+    )
+})
+
+//HELP (we will remove this, merely for dev hints without having to boot up local CLI) -----------------------------------------------------------------------------------
+
+app.get('/help', (req, res) => {
+
+    const options = {
+        args: ['--help']
+    }
+
+    PythonShell.run(
+        cliString,
+        options,
+        (err, result) => {
+            if(err) throw err
+            res.write(`${JSON.stringify(result, undefined, 2)}`)
+            res.send()
+        }
+    )
+
+})
+
+//BALANCE ---------------------------------------------------------------------------------------------------------
+
+app.get('/balance', (req, res) => {
+    
+    const options = {
+        args: ['-j', 'balance']
+    }
+
+    PythonShell.run(
+        cliString,
+        options,
+        (err, result) => {
+            if(err) throw err
+            res.write(`${JSON.stringify(JSON.parse(result), undefined, 2)}`)
+            res.send()
+        }
+    )
+
 })
 
 //CHECK TOKEN (CARDS) BALANCE -------------------------------------------------------------------------------------

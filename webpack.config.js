@@ -16,6 +16,7 @@ module.exports = {
         extensions: ['*', '.js']
     },
     output: {
+        publicPath: '/',
         path: path.resolve(__dirname, './dist'),
         filename: 'index.js',
     },
@@ -27,5 +28,6 @@ module.exports = {
     ],
     devServer: {
         contentBase: path.resolve(__dirname, './dist'),
+        historyApiFallback: true
     },
 };

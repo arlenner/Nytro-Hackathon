@@ -1,8 +1,11 @@
 import { navigate, makeStore, pipeMiddleware } from 'olive-spa'
 import { ACTIONS } from './env'
+import { fxDevLogger } from './fx/fxDevLogger'
+import { fxNavigate } from './fx/fxNavigate'
+import { rxNavigate } from './rx/rxNavigate'
 
 const DEFAULT = {
-    //default app state data
+    path: '/'
 }
 
 //add cases. Use separate functions for each reducer, then compose them here. return passed-in model as default
@@ -15,11 +18,13 @@ const rx = (model, [k, data]) =>
     :   k === ACTIONS.SELECT_PATH   ? rxSelectPath(model, data)
     :                                 model
 */
-const rx = (model, [k, data]) => model
+const rx = (model, [k, data]) => 
+    k === ACTIONS.TRY_NAVIGATE  ? rxNavigate(model, data)
+:   /*default*/                   model
 
 //add middleware here. (model, action) => action
-const pipeline = pipeMiddleware(/*...args*/)
+const pipeline = pipeMiddleware(fxDevLogger, fxNavigate)
 
 //add pipeline when we have side effects to pipe.
-export const store = makeStore(DEFAULT, rx, /*pipeline*/)
+export const store = makeStore(DEFAULT, rx, pipeline)
 

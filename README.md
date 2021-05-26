@@ -2,6 +2,11 @@
 _____ will be a community driven strategy card game with very simple rules. The idea is to completely open source every part of the card creation process by allowing our users to create their own cards within a set of rules (for balance and playability), even submitting their own artwork or commissioned artwork as metadata. We will store metadata in our own proprietary DB, but the tokens will exist on chain using Nytro protocol.
 
 
+# Progress
+
+- 5/25 Nyzocli works when called using server endpoints (powered by `PythonShell`)
+- 5/24 first working commit
+
 ## How we will use the Nytro token protocol
 We will utilize a new issuance for each card token. Yes, we know this is expensive. However:
 - The basis of the application is a strategy game that can be played even without cards (though not as exciting). The cards are an 'experience enhancement', and players will be allowed to play in brackets based on their investment in unique tokens.
