@@ -1,13 +1,17 @@
 import { html, navigate } from 'olive-spa'
 import { store } from './store'
 import { CREATE_RT, HOME_RT, LIB_RT } from './env'
-
 //components
-import { MyComponent } from './components/my-component'
-import { Nav } from './components/nav'
+import { Nav } from './components/Nav/nav'
 import { Lib } from './components/library'
 import { Create } from './components/create'
 import { Home } from './components/home'
+import './style.css'
+import { buildKey } from './nyzo-wallet'
+import { NyzoKey } from './nyzo-wallet/NyzoKey'
+window.NK = NyzoKey
+// import * as buffer from 'buffer'
+// window.Buffer = buffer
 
 //app definition
 const App = () =>
@@ -24,3 +28,5 @@ const App = () =>
 //app entry
 App().mount('root')
 navigate(HOME_RT)
+
+window.buildKey = buildKey

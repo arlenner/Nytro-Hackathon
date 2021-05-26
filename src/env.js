@@ -8,7 +8,9 @@ export const
 
 //add route names to this array
 export const ROUTES = [
-    HOME_RT, LIB_RT, CREATE_RT
+    HOME_RT, 
+    LIB_RT, 
+    CREATE_RT
 ]
 
 export const ACTIONS = {

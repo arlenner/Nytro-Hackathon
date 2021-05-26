@@ -1,0 +1,1 @@
+export const NYZO_PASSWORD = 'MY_CARD_GAME_$$'

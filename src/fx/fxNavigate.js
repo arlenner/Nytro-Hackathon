@@ -10,8 +10,6 @@ export const fxNavigate = (model, action) => {
     const [k,] = action
     const { path } = model
 
-    console.log(path)
-
         k === ACTIONS.TRY_NAVIGATE  ? store.dispatch([ACTIONS.NAVIGATE])
     :   k === ACTIONS.NAVIGATE      ? navigate(path, model)
     :                                 noop()

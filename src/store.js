@@ -16,7 +16,7 @@ const rx = (model, [k, data]) =>
         k === ACTIONS.NEXT_BIO      ? rxNextBio(model)
     :   k === ACTIONS.NEXT_PROJ     ? rxNextProject(model)
     :   k === ACTIONS.SELECT_PATH   ? rxSelectPath(model, data)
-    :                                 model
+    :                                 model //default returns original
 */
 const rx = (model, [k, data]) => 
     k === ACTIONS.TRY_NAVIGATE  ? rxNavigate(model, data)

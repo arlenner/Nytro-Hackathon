@@ -14,12 +14,26 @@
         "@babel/core": "^7.14.3",
         "@babel/preset-env": "^7.14.2",
         "babel-loader": "^8.2.2",
+        "css-loader": "^5.2.6",
         "html-webpack-plugin": "^5.3.1",
+        "style-loader": "^2.0.0",
         "webpack": "^5.37.1",
         "webpack-cli": "^4.7.0",
         "webpack-dev-server": "^3.11.2"
     },
     "dependencies": {
-        "olive-spa": "^3.0.2"
+        "bip39": "^3.0.4",
+        "buffer": "^6.0.3",
+        "create-hash": "^1.2.0",
+        "create-hmac": "^1.1.7",
+        "easyqrcodejs": "^4.4.1",
+        "node-int64": "^0.4.0",
+        "node-polyfill-webpack-plugin": "^1.1.2",
+        "nyzostrings": "^0.0.9",
+        "olive-spa": "^3.0.2",
+        "process": "^0.11.10",
+        "stream-browserify": "^3.0.0",
+        "tweetnacl": "^1.0.3",
+        "tweetnacl-util": "^0.15.1"
     }
 }
