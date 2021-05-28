@@ -1,24 +1,17 @@
 
-//const { sign, box, secretbox, randomBytes } = require('tweetnacl')
-const { sign } = require('tweetnacl')
-const createHash = require('create-hash')
-const createHmac = require('create-hmac')
-// const { decodeUTF8, encodeUTF8, encodeBase64, decodeBase64 } = require("tweetnacl-util")
+import { sign }                         from 'tweetnacl'
+import createHash                       from 'create-hash'
+import createHmac                       from 'create-hmac'
+import * as bip39                       from 'bip39'
+import { NyzoFormat }                   from './NyzoFormat'
+import Int64                            from 'node-int64'
+import { NyzoStringPublicIdentifier }   from "nyzostrings/src/NyzoStringPublicIdentifier.js"
+import { NyzoStringPrivateSeed }        from "nyzostrings/src/NyzoStringPrivateSeed.js"
+import { NyzoStringSignature }          from "nyzostrings/src/NyzoStringSignature.js"
+import { NyzoStringTransaction }        from "nyzostrings/src/NyzoStringTransaction.js"
+import { nyzoStringEncoder }            from "nyzostrings/src/NyzoStringEncoder.js"
 
-const bip39 = require('bip39');
-// const crypto = require("crypto");
-
-const { NyzoFormat } = require('./NyzoFormat')
-nyzoFormat = new NyzoFormat()
-
-const Int64 = require('node-int64')
-const { NyzoStringPublicIdentifier } = require("nyzostrings/src/NyzoStringPublicIdentifier.js")
-const { NyzoStringPrivateSeed } = require("nyzostrings/src/NyzoStringPrivateSeed.js")
-const { NyzoStringSignature } = require("nyzostrings/src/NyzoStringSignature.js")
-const { NyzoStringTransaction } = require("nyzostrings/src/NyzoStringTransaction.js")
-const { nyzoStringEncoder } = require("nyzostrings/src/NyzoStringEncoder.js")
-
-const DEFAULT_PASSWORD = 'NYZO_ROCKS!'
+const nyzoFormat = new NyzoFormat()
 
 // SLIP-0010
 const CURVE_KEY = 'ed25519 seed'
@@ -34,7 +27,7 @@ function nyzoSeedToHexString(nyzoSeed) {
 }
 
 
-function NyzoKey(nyzoSeed) {
+export function NyzoKey(nyzoSeed) {
   if (nyzoSeed) {
     this.seed = Buffer.from(nyzoSeedToHexString(nyzoSeed), 'hex')
     this.keyPair = sign.keyPair.fromSeed(this.seed)
@@ -235,7 +228,3 @@ NyzoKey.prototype.SignCycleTx = function (sig_, vote, delay) {
     return signed
 }
 
-module.exports = {
-    version: "0.0.9",
-    NyzoKey
-}

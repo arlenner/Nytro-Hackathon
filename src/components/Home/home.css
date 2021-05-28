@@ -1,0 +1,28 @@
+.jumbo {
+    margin-top: 5%;
+    height: 40em;
+    width: 60em;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    border: .3em solid silver;
+    border-radius: 1em;
+}
+
+.jumbo-panel {
+    height: 100%;
+    width: 100%;
+    margin: 0 1em 0 1em;
+
+}
+
+.dot-container {
+
+}
+
+.dot {
+
+}

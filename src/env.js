@@ -3,12 +3,14 @@
 //tag route names below as string literal consts
 export const 
             HOME_RT     = '/home',
-            LIB_RT      = '/my-lib',
-            CREATE_RT   = '/create'   
+            LIB_RT      = '/library',
+            CREATE_RT   = '/create',
+            PLAY_RT     = '/play' 
 
 //add route names to this array
 export const ROUTES = [
     HOME_RT, 
+    PLAY_RT,
     LIB_RT, 
     CREATE_RT
 ]
