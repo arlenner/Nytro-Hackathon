@@ -5,7 +5,7 @@ nav {
     height: 4em;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-evenly;
     background-color: var(--main-color);
     position: fixed;
@@ -16,16 +16,16 @@ nav {
 
 a {
     transition: all .33s ease-in-out;
-    border-radius: 0 0 25% 25%;
+    border-radius: 0 0 .5em .5em;
     font-size: 1.8em;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 1em;
+    height: 2em;
     width: 25%;
     text-decoration: none;
     color: var(--text-light);
-    background-color: var(--main-color);
+    background-color: #0000;
 }
 
 .plus {
@@ -37,6 +37,8 @@ a {
 a:hover {
     transition: all .33s ease-in-out;
     height: 3em;
-    margin-top: .5em;
-    text-shadow: 0 0 .25em var(--accent-color);
+    border-radius: 0 0 10% 10%;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 0 .1em #fff inset;
+    text-shadow: 0 0 .25em #fff;
 }

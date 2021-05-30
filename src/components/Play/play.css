@@ -1,0 +1,21 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 8em;
+    border: .25em dashed silver;
+    border-radius: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+button {
+    height: 7em;
+    width: 7em;
+    background-color: #0000;
+    border: .25em solid var(--text-light);
+    color: var(--text-light);
+    border-radius: 8px;
+}

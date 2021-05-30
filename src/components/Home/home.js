@@ -1,4 +1,5 @@
 import { html } from 'olive-spa'
+import { ACTIONS } from '../../env'
 import './home.css'
 
 const panels = [
@@ -6,32 +7,58 @@ const panels = [
         title: 'NFTs Are On Their Way to Nyzo',
         content: 'A digital, community developed trading card game is trying to make NFTs on the Nyzo chain a thing.'
     },
-    // {
-    //     title: 'Join a Community Developed Experience!',
-    //     content: 'Those who invest in digital trading cards may end up holding a valuable asset...'
-    // },
-    // {
-    //     title: 'Build to Suit Your Style',
-    //     content: 'Customize everything from the effects that a card has when played, to the title and background image.'
-    // }
+    {
+        title: 'Join a Community Developed Experience!',
+        content: 'Those who invest in digital trading cards may end up holding a valuable asset...'
+    },
+    {
+        title: 'Build to Suit Your Style',
+        content: `Customize everything from the card's effects, to the title and background image. Make it your own on with Nyzo.`
+    }
 ]
 
-const Jumbotron = () => 
+const JumboPanel = (jumboPanel) => {
+
+    const { title, content } = panels[jumboPanel]
+
+    return html() 
+        .div().class('jumbo-panel')
+            .timer(8000, hx => hx.dispatch(ACTIONS.JUMBO_SWITCH))
+            .subscribe({
+                [ACTIONS.JUMBO_SWITCH]: (hx, {home}) => hx.replace(JumboPanel(home.jumboPanel))
+            })
+            .open()
+                .h2().class('fade').text(title)
+                    .timer(500, h2 => h2.removeClass('fade').class('in'))
+                    .timer(7000, h2 => h2.removeClass('in').class('right'))
+                .p().class('fade').text(content)
+                    .timer(1000, p => p.removeClass('fade').class('in'))
+                    .timer(7500, p => p.removeClass('in').class('right'))
+}
+
+const Jumbotron = ({jumboPanel}) => 
     html()
         .div().class('jumbo').open()
-            .each(panels, (hx, {title, content}) =>
-                hx.div().class('jumbo-panel').open()
-                    .h2().text(title)
-                    .h4().text(content)
-            )
-            .concat(Dots())
-                                                
-const Dots = () => 
+            .concat(JumboPanel(jumboPanel))
+            
+
+const Dot = (i, jumboPanel) =>
+    html()
+        .div().class(i === jumboPanel ? 'dot-sel' : 'dot')
+            .subscribe({
+                [ACTIONS.JUMBO_SWITCH]: (hx, { home }) =>
+                    home.jumboPanel === i ? hx.removeClass('dot').class('dot-sel')
+                :   home.jumboPanel !== i ? hx.removeClass('dot-sel').class('dot')
+                :                           hx.removeClass('dot-sel').class('dot')
+            })
+
+const Dots = (jumboPanel) => 
     html()
         .div().class('dot-container').open()
-            .range(panels.length, hx => hx.div().class('dot'))
+            .each(panels, (hx, _,  i) => hx.concat(Dot(i, jumboPanel)))
 
-export const Home = () => 
+export const Home = (model) => 
     html()
-        .section().class('outlet-main').open()
-            .concat(Jumbotron())
+        .section().class('outlet-main').css({flexDirection: 'column-reverse'}).open()
+            .concat(Dots(model.home.jumboPanel))
+            .concat(Jumbotron(model.home))

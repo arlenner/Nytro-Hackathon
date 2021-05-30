@@ -1,6 +1,6 @@
 import { html, navigate } from 'olive-spa'
 import { store } from './store'
-import { CREATE_RT, HOME_RT, LIB_RT, PLAY_RT } from './env'
+import { ACTIONS, CREATE_RT, HOME_RT, LIB_RT, PLAY_RT } from './env'
 //components
 import { Nav } from './components/Nav/nav'
 import { Lib } from './components/Library/library'
@@ -29,7 +29,9 @@ const App = () =>
 
 //app entry
 App().mount('root')
-navigate(HOME_RT)
+html().dispatch(ACTIONS.TRY_NAVIGATE, HOME_RT)
 
+
+//TODO: REMOVE THESE BEFORE RELEASE
 window.buildKey = buildKey
 window.NyzoKey = NyzoKey

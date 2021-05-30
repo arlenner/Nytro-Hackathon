@@ -2,10 +2,19 @@ import { navigate, makeStore, pipeMiddleware } from 'olive-spa'
 import { ACTIONS } from './env'
 import { fxDevLogger } from './fx/fxDevLogger'
 import { fxNavigate } from './fx/fxNavigate'
+import { rxJumboSwitch } from './rx/rxJumboSwitch'
 import { rxNavigate } from './rx/rxNavigate'
 
 const DEFAULT = {
-    path: '/'
+    path: '/',
+    home: {
+        jumboPanel: 0,
+    },
+    gamestate: {
+        client: {},
+        opponent: {},
+        turnHistory: [],
+    }
 }
 
 //add cases. Use separate functions for each reducer, then compose them here. return passed-in model as default
@@ -20,6 +29,7 @@ const rx = (model, [k, data]) =>
 */
 const rx = (model, [k, data]) => 
     k === ACTIONS.TRY_NAVIGATE  ? rxNavigate(model, data)
+:   k === ACTIONS.JUMBO_SWITCH  ? rxJumboSwitch(model, data)
 :   /*default*/                   model
 
 //add middleware here. (model, action) => action

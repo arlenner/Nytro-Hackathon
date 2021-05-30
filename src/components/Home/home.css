@@ -2,27 +2,60 @@
     margin-top: 5%;
     height: 40em;
     width: 60em;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
     align-items: center;
-    border: .3em solid silver;
+    box-shadow: .25em .25em .25em 0 #0006, -.25em -.25em .25em 0 #fff6;
     border-radius: 1em;
 }
 
 .jumbo-panel {
+    margin: 7em;
     height: 100%;
     width: 100%;
-    margin: 0 1em 0 1em;
 
+}
+
+.in {
+    transition: all .66s ease-in;
+    opacity: 100%;
+}
+.right {
+    transition: all .66s ease-in;
+    transform: translateX(100em);
+}
+.left {
+    transition: all .66s ease-in;
+    transform: translateX(-100em);
+}
+.fade {
+    transition: all .66s ease-in;
+    opacity: 0%;
 }
 
 .dot-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 14em;
+    height: 3em;
+    margin: 1em;
+}
 
+.dot, .dot-sel {
+    height: 1em;
+    width: 1em;
 }
 
 .dot {
+    border-radius: 50%;
+    background-color: #0000;
+    border: 1px solid white;
+}
 
+.dot-sel {
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: white;
 }

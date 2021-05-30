@@ -1,12 +1,35 @@
 import { html } from 'olive-spa'
 import './play.css'
+import { ACTIONS } from '../../env'
 
-const InterfaceBar = () => 
+const controls = [
+    {
+        key: 'ec',
+        display: 'Economy',
+        action: ACTIONS.CLIENT_CHOOSE_EC
+    },
+    {
+        key: 'mi',
+        display: 'Military',
+        action: ACTIONS.CLIENT_CHOOSE_MI
+    },
+    {
+        key: 'so',
+        display: 'Society',
+        action: ACTIONS.CLIENT_CHOOSE_SO
+    },
+]
+
+const InterfaceBar = (gamestate) => 
     html()
         .footer().open()
-            .range()
+            .each(controls, (hx, {display, key, action}) => 
+                hx.button()
+                    .text(display)
+                    .on('click', hxa => hxa.dispatch(action, gamestate.client[key]))
+            )
 
-export const Play = () => 
+export const Play = ({gamestate}) => 
     html()
         .section().class('outlet-main').open()
-            .h2().text('This is the Play Component')
+            .concat(InterfaceBar(gamestate))
