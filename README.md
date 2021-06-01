@@ -3,7 +3,7 @@ _____ will be a community driven strategy card game with very simple rules. The 
 
 
 # Progress
-
+- 5/26-31 working on UI a lot...
 - 5/25 Nyzocli works when called using server endpoints (powered by `PythonShell`)
 - 5/24 first working commit
 
