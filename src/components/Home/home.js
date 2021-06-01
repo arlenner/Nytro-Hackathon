@@ -5,7 +5,7 @@ import './home.css'
 const panels = [
     { 
         title: 'NFTs Are On Their Way to Nyzo',
-        content: 'A digital, community developed trading card game is trying to make NFTs on the Nyzo chain a thing.'
+        content: 'A group developing a digital, community-driven trading card game is trying to make NFTs on the Nyzo chain a thing.'
     },
     {
         title: 'Join a Community Developed Experience!',
@@ -13,7 +13,7 @@ const panels = [
     },
     {
         title: 'Build to Suit Your Style',
-        content: `Customize everything from the card's effects, to the title and background image. Make it your own on with Nyzo.`
+        content: `Customize everything from the card's effects, to the title and background image. Make it your own with Nyzo.`
     }
 ]
 
@@ -58,7 +58,9 @@ const Dots = (jumboPanel) =>
             .each(panels, (hx, _,  i) => hx.concat(Dot(i, jumboPanel)))
 
 export const Home = (model) => 
-    html()
+    html()  //here's a stupid glitch. If an element has a dispatch function and it is rendered before a dependent of that function, 
+            //the late-rendered element will not update on the first update loop. This is fixed here by rendering in reverse and
+            //adding 'column-reverse' flex direction to the 'outlet-main' class element. (try reordering Jumbo and Dots - dots updates funny.)
         .section().class('outlet-main').css({flexDirection: 'column-reverse'}).open()
             .concat(Dots(model.home.jumboPanel))
             .concat(Jumbotron(model.home))

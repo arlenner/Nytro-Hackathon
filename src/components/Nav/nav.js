@@ -2,7 +2,7 @@ import { html } from 'olive-spa'
 import { ACTIONS, ROUTES } from '../../env'
 import './nav.css'
 
-export const Nav = () =>
+export const Nav = () => 
     html()
         .nav().open()
             .each(ROUTES, (hx, rt) => 
@@ -10,4 +10,8 @@ export const Nav = () =>
                     .text(rt.slice(1).toUpperCase())
                     .href('#')
                     .on('click', htmlx => htmlx.dispatch(ACTIONS.TRY_NAVIGATE, rt))
+                    .subscribe({
+                        [ACTIONS.TRY_NAVIGATE]: (hx, {path}) => 
+                            rt === path ? hx.class('selected') : hx.removeClass('selected')                        
+                    })
             )

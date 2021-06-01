@@ -1,4 +1,5 @@
 import { html } from 'olive-spa'
+import './create.css'
 
 export const Create = () => 
     html()

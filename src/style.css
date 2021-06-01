@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Press+Start+2P&display=swap');
 
 :root {
-    --main-color: #aa5656;
+    --main-color: #e5e5e5;
     --neutral-color: #d5b9b0;
-    --neutral-dark: #343434;
-    --accent-color: #f59900;
-    --text-light: #e5e5e5;
+    --neutral-dark: #222;
+    --accent-color: #ee2299;
+    --text-dark: #494949;
+    --text-light: #fff;
 }
 
 body {

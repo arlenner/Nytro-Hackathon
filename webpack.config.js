@@ -18,6 +18,13 @@ module.exports = {
                     'style-loader',
                     'css-loader', 
                 ]
+            },
+            {
+                test: /\.png$/,
+                exclude: /node_modules/,
+                use: [
+                    'file-loader'
+                ]
             }
         ]
     },

@@ -27,6 +27,7 @@
         "create-hash": "^1.2.0",
         "create-hmac": "^1.1.7",
         "easyqrcodejs": "^4.4.1",
+        "file-loader": "^6.2.0",
         "node-int64": "^0.4.0",
         "node-polyfill-webpack-plugin": "^1.1.2",
         "nyzostrings": "^0.0.9",

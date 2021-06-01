@@ -1,5 +1,5 @@
 import { navigate } from 'olive-spa'
-import { ACTIONS } from "../env"
+import { ACTIONS } from "../../env"
 import { store } from '../store'
 
 /**

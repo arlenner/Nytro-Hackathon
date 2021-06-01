@@ -3,19 +3,108 @@ footer {
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: 8em;
-    border: .25em dashed silver;
-    border-radius: .5em;
+    height: 12em;
+    background-color: var(--main-color);
+    border-radius: 33% 33% 0 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-evenly;
+    z-index: 2;
 }
 
-button {
-    height: 7em;
-    width: 7em;
-    background-color: #0000;
-    border: .25em solid var(--text-light);
+.btn-ctrl {
+    transition: all .33s ease-in;
+    height: 136px;
+    width: 128px;
     color: var(--text-light);
-    border-radius: 8px;
+    background-color: #0000;    
+    border-radius: 10% 10% 0 0;
+    border: none;        
+    margin-top: 3em;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.btn-ctrl:hover, .btn-ctrl:focus, .btn-ctrl-selected {
+    transition: all .33s ease-out;
+    margin-top: -1.5em;
+    height: 13em;
+    background-color: var(--accent-color);
+    border-radius: 10% 10% 0 0;
+    outline: none;
+    box-shadow: 0 0 0 .25em #fff;                 
+}
+
+.btn-ctrl:active {
+    transition: background-color .2s linear;
+    background-color: #ee77bb;
+}
+
+.ready {
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    transition: all .4s ease-in-out;
+    position: fixed;
+    color: var(--text-light);
+    background-color: #0000;
+    bottom: 3em;
+    right: 4em;     
+    height: 4em;
+    width: 10em;        
+    border: none;
+    border-radius: 15%;
+    box-shadow: 0 0 0 .25em #fff;
+    z-index: 2;
+}
+.ready:hover, .ready:focus {
+    transition: all .4s,;
+    background-color: var(--accent-color);
+}
+
+.ready:active {
+    background-color: #ee77bb;
+}
+
+.ready:disabled {
+    cursor: not-allowed;
+    color: #999;
+    background-color: var(--neutral-color);
+}
+
+.btn-bg {
+    height: 100%;
+    width: 100%;    
+    background-repeat: no-repeat;
+    background-size: contain;
+    flex-direction: column-reverse;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.hud {
+    position: fixed;
+    bottom: 0;
+    height: 20em;
+    width: 50%;
+    border-radius: 50% 50% 0 0;
+    background-color: var(--main-color);
+    z-index: 1;
+}
+
+.ec-icon, .mi-icon, .so-icon {
+    font-family: 'Odibee Sans', cursive;
+    font-size: 1.5em;
+}
+
+.ec-icon {    
+    background-image: url('../../assets/economy2_128.png');
+}
+
+.mi-icon {
+    background-image: url('../../assets/military_128.png')
+}
+
+.so-icon {
+    background-image: url('../../assets/society_128.png');
 }

@@ -49,13 +49,28 @@
 }
 
 .dot {
+    transition: background-color .33s ease-in;
     border-radius: 50%;
     background-color: #0000;
     border: 1px solid white;
 }
 
 .dot-sel {
+    transition: background-color .33s ease-in;
     border-radius: 50%;
     border: 1px solid white;
     background-color: white;
+}
+
+h2 {
+    font-family: 'Odibee Sans', cursive;
+    margin-top: 1em;
+    font-size: 3em;
+    background: linear-gradient(#0000 0% 95%, var(--text-light) 96% 100%)
+}
+
+p {
+    margin: 0 1em 0 1em;
+    font-size: .8em;
+    line-height: 2em;
 }

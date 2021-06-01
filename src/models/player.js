@@ -5,9 +5,23 @@
  */
 export const Player = name => ({
     name,
-    stats: {
-        ec: 2,
-        mi: 2,
-        so: 2
-    }
+    currentSelection: { key: 'no' },
+    stats: [
+        {
+            name: 'ec',
+            display: 'Economy',
+            value: 2
+        },
+        {
+            name: 'mi',
+            display: 'Military',
+            value: 2
+        },
+        {
+            name: 'so',
+            display: 'Society',
+            value: 2
+        },
+    ],
+    cards: []
 })

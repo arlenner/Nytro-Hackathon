@@ -11,7 +11,13 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
-    border-radius: 0 0 22% 22%;
+    border-radius: 0 0 22% 22%;         
+}
+
+a:focus, .selected {
+    transition: all .33s ease-in-out;
+    text-shadow: 0 0 .25em var(--accent-color);
+    outline: none;
 }
 
 a {
@@ -28,13 +34,7 @@ a {
     background-color: #0000;
 }
 
-.plus {
-    height: 64px;
-    width: 64px;
-    background-image: url(https://img.icons8.com/fluent-systems-filled/64/plus.png);
-}
-
-a:hover {
+a:hover { 
     transition: all .33s ease-in-out;
     height: 3em;
     border-radius: 0 0 10% 10%;
