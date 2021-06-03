@@ -45,7 +45,7 @@ footer {
     font-family: 'Press Start 2P', cursive;
     transition: all .4s ease-in-out;
     position: fixed;
-    color: var(--text-light);
+    color: #000;
     background-color: #0000;
     bottom: 3em;
     right: 4em;     
@@ -53,10 +53,10 @@ footer {
     width: 10em;        
     border: none;
     border-radius: 15%;
-    box-shadow: 0 0 0 .25em #fff;
+    box-shadow: 0 0 0 .25em #000;
     z-index: 2;
 }
-.ready:hover, .ready:focus {
+.ready:hover {
     transition: all .4s,;
     background-color: var(--accent-color);
 }
@@ -65,10 +65,17 @@ footer {
     background-color: #ee77bb;
 }
 
+.ready:focus {
+    outline: none;
+    box-shadow: 0 0 0 .25em var(--accent-color);
+}
+
+
 .ready:disabled {
     cursor: not-allowed;
-    color: #999;
-    background-color: var(--neutral-color);
+    color: #555;
+    background: repeating-linear-gradient(45deg, #999 0% 2%, #0000 2% 6%);
+    box-shadow: 0 0 0 .25em #999;
 }
 
 .btn-bg {

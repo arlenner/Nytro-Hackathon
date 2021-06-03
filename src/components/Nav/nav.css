@@ -14,13 +14,13 @@ nav {
     border-radius: 0 0 22% 22%;         
 }
 
-a:focus, .selected {
+enabled-link:focus, .selected {
     transition: all .33s ease-in-out;
     text-shadow: 0 0 .25em var(--accent-color);
     outline: none;
 }
 
-a {
+.enabled-link {
     transition: all .33s ease-in-out;
     border-radius: 0 0 .5em .5em;
     font-size: 1.8em;
@@ -32,13 +32,110 @@ a {
     text-decoration: none;
     color: var(--text-light);
     background-color: #0000;
+    /* margin: .1em; */
 }
 
-a:hover { 
+.disabled-link, .disabled-link:hover {
+    visibility: hidden;
+    font-size: 1.5em;
+    border: .1em solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.8em;
+    width: 25%;
+    text-decoration: none;
+    color: var(--text-light);
+    background-color: #0000;
+    background: repeating-linear-gradient(45deg, #0000 0% 2%, #999 2% 4%);
+    margin: .1em;
+}
+
+.enabled-link:hover { 
     transition: all .33s ease-in-out;
     height: 3em;
     border-radius: 0 0 10% 10%;
     background-color: var(--accent-color);
     box-shadow: 0 0 0 .1em #fff inset;
     text-shadow: 0 0 .25em #fff;
+}
+
+.lock {
+    transition: all .33s ease-out;
+    cursor: pointer;
+    background-image: url(../../assets/lock_64.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: fixed;
+    top: .25em;
+    left: 0;
+    z-index: 3;
+    height: 54px;
+    width: 54px;
+    transform: scale(1);
+}
+
+.lock:hover {
+    transform: scale(1.1);
+}
+
+.lock-open {
+    margin: .5em;
+    transition: all .5s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 3;
+}
+
+.lock-open section {
+    display: flex;
+    height: 14em;
+    width: 38em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    background-color: #999b;
+    border-radius: 1em;
+    border: .1em solid white;
+    padding: .5em;
+    z-index: 3;
+}
+
+.close-x {
+    border-radius: 50%;
+    background: transparent;
+    width: 2em;
+    height: 2em;
+    border: .2em solid white;
+    color: white;
+}
+.close-x:hover {
+    border: .2em solid var(--accent-color);
+    color: var(--accent-color);
+}
+.close-x:active {
+    border: .2em solid #e7b;
+    color: #e7b
+}
+
+.lock-open section input, .submit {
+    width: 90%;
+    margin: 1em;
+}
+
+.submit {
+    text-align: center;
+}
+
+.lock-open section input {
+    font-size: 1em;
+    border-radius: .25em;
+    height: 1.25em;
+}
+
+.form-h1 {
+    font-size: 2em;
 }

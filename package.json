@@ -22,6 +22,7 @@
         "webpack-dev-server": "^3.11.2"
     },
     "dependencies": {
+        "@babel/polyfill": "^7.12.1",
         "bip39": "^3.0.4",
         "buffer": "^6.0.3",
         "create-hash": "^1.2.0",
@@ -33,6 +34,7 @@
         "nyzostrings": "^0.0.9",
         "olive-spa": "^3.0.2",
         "process": "^0.11.10",
+        "socket.io-client": "^4.1.2",
         "stream-browserify": "^3.0.0",
         "tweetnacl": "^1.0.3",
         "tweetnacl-util": "^0.15.1"

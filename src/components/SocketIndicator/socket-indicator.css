@@ -1,0 +1,29 @@
+.socket-indicator {
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    padding: .25em;
+    font-weight: 800;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    user-select: none;
+}
+
+
+.connect-unknown {
+    background-color: #999;
+}
+
+.connect-ok {
+    background-color: #bada55;
+}
+
+.connect-failed {
+    background-color: #ba5555;
+}

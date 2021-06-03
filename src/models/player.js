@@ -6,6 +6,7 @@
 export const Player = name => ({
     name,
     currentSelection: { key: 'no' },
+    ready: false,
     stats: [
         {
             name: 'ec',

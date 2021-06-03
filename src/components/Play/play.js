@@ -24,12 +24,12 @@ const ReadyButton = ({client}) =>
     html()
         .button()
             .class('ready')
-            .text('Ready!')
+            .text('Choose...')
             .disabled()
             .on('click', hx => hx.dispatch(ACTIONS.CLIENT_READY))
             .subscribe({
                 [ACTIONS.CLIENT_CHOOSE]: (hx) =>
-                    isNoSelection(client.currentSelection) ? hx.removeAttr('disabled') : hx.attr('disabled')
+                    isNoSelection(client.currentSelection) ? hx.text('Ready!').removeAttr('disabled') : hx.text('Choose...').attr('disabled')
             })
 
 const InterfaceBar = (gamestate) => 
