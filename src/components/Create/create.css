@@ -1,0 +1,31 @@
+.editor-container {
+    margin-top: 3em;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.editor-form {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.editor-divider {
+    width: 10%;
+    background: linear-gradient(#0000 0% 45%, #fff 45% 55%, #0000 55%);
+    height: 100%;
+}
+
+.output-card {
+    width: 40%;
+    height: 100%;
+}
+
+

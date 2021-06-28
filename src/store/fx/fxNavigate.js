@@ -8,11 +8,11 @@ import { html } from 'olive-spa'
  */
 export const fxNavigate = (model, action) => {
     const noop = () => {}
-    const [k,] = action
+    const [k, data] = action
     const { path } = model
 
         k === ACTIONS.TRY_NAVIGATE  ? html().dispatch(ACTIONS.NAVIGATE)
-    :   k === ACTIONS.NAVIGATE      ? navigate(path, model)
+    :   k === ACTIONS.NAVIGATE      ? navigate(path, data)
     :                                 noop()
 
     return action

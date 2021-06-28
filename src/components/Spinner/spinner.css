@@ -1,0 +1,17 @@
+.spinner {
+    animation: spin 3s linear infinite;
+    height: 128px;
+    width: 128px;
+    background-image: url('../../assets/spinner_128.png');
+    filter: invert();
+    opacity: 50%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}

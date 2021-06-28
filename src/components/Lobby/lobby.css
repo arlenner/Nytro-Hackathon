@@ -1,0 +1,77 @@
+.rooms-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rooms-list {
+    padding-left: 0;
+    width: 80vw;
+    height: 60vh;
+    background: radial-gradient(farthest-corner at 20% 100%, #fff9 0%, #fff2 80%);
+    border: .25em solid var(--text-light);
+    border-radius: 1em;
+    box-shadow: 0 .5em .5em 0em #000 inset;
+}
+
+.host-btn {
+    font-family: 'Odibee Sans', cursive;
+    width: 8em;
+    height: 1.5em;
+    font-size: 5em;
+    background: radial-gradient(farthest-corner at 20% 100%, #fff9 0%, #fff2 80%);
+    border-radius: .5em;
+    border: .05em solid var(--text-light);
+}
+.host-btn:hover {
+    background: radial-gradient(farthest-corner at 80% 0%, #fff9 0%, #fff2 80%);
+}
+.host-btn:active {
+    background: var(--accent-color);
+    box-shadow: 0 .1em .1em 0em #000 inset;
+}
+
+.join-btn {
+    font-family: 'Press Start 2P', cursive;
+    background: transparent;
+    color: var(--text-light);
+    border: .2em solid var(--text-light);
+    height: 4em;
+    width: 10em;
+}
+.join-btn:hover {
+    background: #999;
+}
+.join-btn:active {
+    background: var(--accent-color);
+    box-shadow: 0 .5em .5em 0em #000 inset;
+}
+
+.rooms-item {
+    box-sizing: border-box;
+    padding-left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    border-bottom: 2px solid white;
+    width: 100%;
+    height: 4em;
+}
+
+.rooms-item::before {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;    
+    border-right: 2px solid white;
+    content: 'X';
+    height: 4em;
+    width: 4em;
+}
+
+.room-host {
+
+}

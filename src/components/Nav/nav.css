@@ -1,6 +1,7 @@
 @import '../../style.css';
 
 nav {
+    transition: transform .5s ease-in;
     width: 100vw;
     height: 4em;
     display: flex;
@@ -10,18 +11,18 @@ nav {
     background-color: var(--main-color);
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0;    
     border-radius: 0 0 22% 22%;         
 }
 
-enabled-link:focus, .selected {
-    transition: all .33s ease-in-out;
+.enabled-link:focus, .selected {
+    /* transition: all .2s ease-in-out; */
     text-shadow: 0 0 .25em var(--accent-color);
     outline: none;
 }
 
 .enabled-link {
-    transition: all .33s ease-in-out;
+    transition: background .2s ease-in-out, height .2s ease-in-out;
     border-radius: 0 0 .5em .5em;
     font-size: 1.8em;
     display: flex;
@@ -52,12 +53,15 @@ enabled-link:focus, .selected {
 }
 
 .enabled-link:hover { 
-    transition: all .33s ease-in-out;
+    /* transition: all .2s ease-in-out; */
     height: 3em;
     border-radius: 0 0 10% 10%;
     background-color: var(--accent-color);
-    box-shadow: 0 0 0 .1em #fff inset;
     text-shadow: 0 0 .25em #fff;
+    border: .15em solid var(--text-light);
+}
+.enabled-link:active {    
+    box-shadow: 0 .2em .2em 0em #000 inset;
 }
 
 .lock {
@@ -138,4 +142,9 @@ enabled-link:focus, .selected {
 
 .form-h1 {
     font-size: 2em;
+}
+
+.hide-high {
+    transition: transform .5s ease-in;
+    transform: translateY(-1050px);
 }

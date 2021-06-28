@@ -1,4 +1,5 @@
 footer {
+    transition: transform .66s ease-out;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -47,14 +48,18 @@ footer {
     position: fixed;
     color: #000;
     background-color: #0000;
-    bottom: 3em;
-    right: 4em;     
-    height: 4em;
-    width: 10em;        
+    bottom: -10em;
+    right: 0em;     
+    height: 15em;
+    width: 15em;        
     border: none;
-    border-radius: 15%;
+    border-radius: 50%;
     box-shadow: 0 0 0 .25em #000;
     z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 3em;
 }
 .ready:hover {
     transition: all .4s,;
@@ -90,6 +95,7 @@ footer {
 }
 
 .hud {
+    transition: transform .66s ease-out;
     position: fixed;
     bottom: 0;
     height: 20em;
@@ -97,6 +103,12 @@ footer {
     border-radius: 50% 50% 0 0;
     background-color: var(--main-color);
     z-index: 1;
+    transform: translateY(0);
+}
+
+.hide-low {
+    visibility: hidden;
+    transform: translateY(1050px)
 }
 
 .ec-icon, .mi-icon, .so-icon {

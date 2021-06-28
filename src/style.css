@@ -9,6 +9,10 @@
     --text-light: #fff;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--neutral-dark);
     width: 100vw;

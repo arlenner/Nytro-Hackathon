@@ -1,6 +1,12 @@
+import { SHARED_ACTIONS } from "../../env"
 
 
 export const fxDevLogger = (model, action) => {
-    console.log(`Processing action [${action[0]}]${action[1] ? ` with data ${JSON.stringify(action[1], undefined, 2)}` : '.'}`)
+    const [k, data] = action
+    
+    if(action[0] === SHARED_ACTIONS.WSS_CONNECTED) {
+        console.log(`Processing action [${k}]. Socket ID: ${data.id}.`)
+    }
+    else console.log(`Processing action [${k}]${data ? ` with data ${JSON.stringify(data, undefined, 2)}` : '.'}`)
     return action
 }

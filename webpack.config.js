@@ -48,7 +48,9 @@ module.exports = {
         new NodePolyfillPlugin()
     ],
     devServer: {
+        // port: 8000,
         contentBase: path.resolve(__dirname, './dist'),
-        historyApiFallback: true
+        historyApiFallback: true, 
+        
     },
 };

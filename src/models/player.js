@@ -3,11 +3,12 @@
  * Player data model constructor
  * @param {string} name 
  */
-export const Player = name => ({
-    name,
-    currentSelection: { key: 'no' },
-    ready: false,
-    stats: [
+export function Player(name, id) {
+    this.socketId = id
+    this.name = name
+    this.currentSelection = { key: 'no' }
+    this.ready = false
+    this.stats = [
         {
             name: 'ec',
             display: 'Economy',
@@ -23,6 +24,6 @@ export const Player = name => ({
             display: 'Society',
             value: 2
         },
-    ],
-    cards: []
-})
+    ]
+    this.cards = []
+}
