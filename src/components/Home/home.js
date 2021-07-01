@@ -1,6 +1,5 @@
-import { customDispatcher, html } from 'olive-spa'
-import { SHARED_ACTIONS } from '../../env'
-import { fxDevLogger } from '../../store/fx/fxDevLogger'
+
+import { html } from 'olive-spa/dist/html/html'
 import { JUMBO_SWITCH, HomeDispatcher } from './home-dispatcher'
 import './home.css'
 
@@ -22,15 +21,16 @@ const panels = [
 ]
 
 const JumboPanel = i => {
-
+    console.log(i)
     const { title, content } = panels[i % panels.length]
 
     return html() 
         .div()
+        .use(HomeDispatcher)
         .class('jumbo-panel')
         .timer(8000, hx => hx.dispatch(JUMBO_SWITCH, i+1))
         .subscribe({
-            [JUMBO_SWITCH]: (hx, i) => hx.replace(JumboPanel(i))
+            [JUMBO_SWITCH]: (hx, {panelIndex}) => hx.replaceWith(JumboPanel(panelIndex))
         })
         .nest()
 
@@ -47,23 +47,24 @@ const JumboPanel = i => {
             .timer(7500, p => p.removeClass('in').class('right'))
 }
 
-const Jumbotron = i => 
+const Jumbotron = ({panelIndex}) => 
     html()
         .div()
         .class('jumbo')
         .nest()
-            .concat(JumboPanel(i))
+            .concat(JumboPanel(panelIndex))
             
 
 const Dot = i =>
     html()
         .div()
+        .use(HomeDispatcher)
         .class(i === HomeDispatcher.state() ? 'dot-sel' : 'dot')
         .subscribe({
-            [JUMBO_SWITCH]: (hx, n) =>
-                n === i     ? hx.removeClass('dot').class('dot-sel')
-            :   n !== i     ? hx.removeClass('dot-sel').class('dot')
-            :                 hx.removeClass('dot-sel').class('dot')
+            [JUMBO_SWITCH]: (hx, {panelIndex}) =>
+                panelIndex === i    ? hx.removeClass('dot').class('dot-sel')
+            :   panelIndex !== i    ? hx.removeClass('dot-sel').class('dot')
+            :                         hx.removeClass('dot-sel').class('dot')
         })
 
 const Dots = () => 
@@ -78,9 +79,8 @@ export const Home = () =>
             //the late-rendered element will not update on the first update loop. This is fixed here by rendering in reverse and
             //adding 'column-reverse' flex direction to the 'outlet-main' class element. (try reordering Jumbo and Dots - dots updates funny.)
         .section()
-        .use(HomeDispatcher)
         .class('outlet-main')
         .css({flexDirection: 'column-reverse'})
         .nest()
             .concat(Dots())
-            .concat(Jumbotron(HomeDispatcher.state().panelIndex))
+            .concat(Jumbotron(HomeDispatcher.state()))

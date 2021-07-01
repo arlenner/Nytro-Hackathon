@@ -1,6 +1,7 @@
-import { Html, customDispatcher, pipeMiddleware } from 'olive-spa'
+import { Html, customDispatcher, pipeMiddleware, navigate } from 'olive-spa'
+import { html } from 'olive-spa/dist/html/html'
+import { setPublicKey } from '../../../session/publicKey'
 import { NYZO_API_URL } from '../../env'
-import { fxDevLogger } from '../../store/fx/fxDevLogger'
 
 export const NAVIGATE           = 'Navigate'
 export const TRY_NAVIGATE       = 'Try Navigate'
@@ -10,32 +11,38 @@ export const OPEN_LOCK          = 'Open Lock'
 export const CHECK_ID           = 'Check ID'
 export const CHECK_ID_FAIL      = 'Check ID Fail'
 export const CHECK_ID_SUCCESS   = 'Check ID Success'
+export const WAIT_FOR_GAME      = 'Wait For Game'
 
 const fxNavigate = (model, action) => {
-    const noop = () => {}
     const [k, data] = action
-    const { path } = model
-
-        k === TRY_NAVIGATE  ? html().dispatch(NAVIGATE)
-    :   k === NAVIGATE      ? navigate(path, data)
-    :                         noop()
+       
+    if(k === NAVIGATE) {
+        navigate(data)
+    }
 
     return action
 } 
 
 const fxCheckId = (model, action) => {
     const [k, id] = action
-    console.log(id)
     if(k !== CHECK_ID) return action
 
-    
-    fetch(NYZO_API_URL + '/balances/' +id, {
-        mode: 'no-cors',
+    fetch(NYZO_API_URL + '/balances/' +id)
+    .then(res => res.json())
+    .then(json => {
+        console.log(json)
+        html().dispatch(json !== "Error: Wrong params" ? CHECK_ID_SUCCESS : CHECK_ID_FAIL, json, ['NavDispatcher'])
     })
-    .then(res => {
-        console.log(res)
-        html().dispatch(res.status !== 200 ? CHECK_ID_FAIL : CHECK_ID_SUCCESS, res)
-    })
+
+    return action
+}
+
+const fxStoreId = (model, action) => {
+    const [k, id] = action
+    if(k !== CHECK_ID_SUCCESS) return action
+
+    console.log('storing ID')
+    setPublicKey(id)
 
     return action
 }
@@ -53,7 +60,7 @@ const reducer = (model, [k, data]) =>
 :   k === NAVIGATE         ? { ...model, path: data }
 :   /*else*/                 model
 
-const mw = pipeMiddleware(fxCheckId, fxNavigate)
+const mw = pipeMiddleware(fxNavigate, fxCheckId, fxStoreId)
 
 export const NavDispatcher = customDispatcher({
     id: 'NavDispatcher',

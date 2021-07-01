@@ -1,9 +1,4 @@
 import { html } from 'olive-spa'
-import { getMaxListeners, hasUncaughtExceptionCaptureCallback } from 'process'
-import { SHARED_ACTIONS } from '../../env'
-import { CLIENT_SOCKET } from '../../store/store'
-import { useState } from '../../utils/useState'
-import { Spinner } from '../Spinner/spinner'
 import './lobby.css'
 
 const RoomsList = () => {

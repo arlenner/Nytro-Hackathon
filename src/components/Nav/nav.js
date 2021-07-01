@@ -1,7 +1,6 @@
 import { customDispatcher, html, Html } from 'olive-spa'
 import { getPublicKey } from '../../../session/publicKey'
 import { SHARED_ACTIONS, ROUTES } from '../../env'
-import { store, WALLET_STATUS } from '../../store/store'
 import { 
     NavDispatcher,
     TRY_CONNECT_WALLET,
@@ -9,16 +8,18 @@ import {
     CHECK_ID_FAIL,
     CHECK_ID_SUCCESS,
     OPEN_LOCK,
-    WALLET_CONNECTED
+    WALLET_CONNECTED,
+    NAVIGATE,
+    WAIT_FOR_GAME
 } from './nav-dispatcher'
 import './nav.css'
 
-const { NAVIGATE, TRY_NAVIGATE, WAIT_FOR_GAME } = SHARED_ACTIONS
 
 
 const AddressForm = () => 
     html()
         .div()
+        .use(NavDispatcher)
         .class('lock-open')
         .subscribe({
             [OPEN_LOCK]: hx => hx.replaceWith(Lock()),
@@ -31,6 +32,7 @@ const AddressForm = () =>
             .nest()
 
                 .button()
+                .use(NavDispatcher)
                 .class('close-x')
                 .text('X')
                 .on('click', hx => hx.dispatch(OPEN_LOCK))
@@ -40,11 +42,13 @@ const AddressForm = () =>
                 .text('Enter your Public NYZO Identifier:')
 
                 .input()
+                .use(NavDispatcher)
                 .placeholderAttr('id__00000000000000000000000000000000000000000000000000')
                 .typeAttr('text')
                 .on('input', hx => hx.dispatch(CHECK_ID, hx.valueAttr()))
 
                 .button()
+                .use(NavDispatcher)
                 .class('submit')
                 .text('---')
                 .disabledAttr(true)                    
@@ -55,12 +59,13 @@ const AddressForm = () =>
                         .text('CONNECT')
                         .removeAttr('disabled'),
 
-                    [CHECK_ID_FAIL]: hx => hx.disabled().text('---')
+                    [CHECK_ID_FAIL]: hx => hx.disabledAttr(true).text('---')
                 })
 
 const Lock = () => 
     html()
         .div()
+        .use(NavDispatcher)
         .class('lock')
         .on('click', hx => hx.dispatch(OPEN_LOCK))
         .subscribe({
@@ -77,19 +82,14 @@ const NavLocked = () =>
         .each(ROUTES, (hx, rt) => 
             hx
             .a()
+            .use(NavDispatcher)
             .class('disabled-link')
             .css({cursor: 'not-allowed'})
             .text(rt.slice(1).toUpperCase())
             .hrefAttr('#')
-            .on(
-                'click', 
-                hy => 
-                    store.state().loginStatus === WALLET_STATUS.connected 
-                        ? hy.dispatch(TRY_NAVIGATE, rt)
-                        : hy
-            )
+            .on('click',  hy => hy.dispatch(NAVIGATE, rt))
             .subscribe({
-                [TRY_NAVIGATE]: (hz, {path}) => 
+                [NAVIGATE]: (hz, {path}) => 
                     rt === path 
                         ? hz.class('selected') 
                         : hz.removeClass('selected'),
@@ -104,7 +104,7 @@ const NavLocked = () =>
         .concat(Lock())
 
 const NavUnlocked = () => {
-    store.state().loginStatus = WALLET_STATUS.connected
+    // loginStatus = WALLET_STATUS.connected
 
     return html()
         .nav()
@@ -116,18 +116,16 @@ const NavUnlocked = () => {
             .each(ROUTES, (hx, rt) => 
                 hx
                 .a()
+                .use(NavDispatcher)
                 .class('enabled-link')
                 .text(rt.slice(1).toUpperCase())
                 .hrefAttr('#')
                 .on(
                     'click', 
-                    htmlx => 
-                        store.state().loginStatus === WALLET_STATUS.connected 
-                            ? htmlx.dispatch(TRY_NAVIGATE, rt)
-                            : htmlx
+                    htmlx => htmlx.dispatch(NAVIGATE, rt)
                 )
                 .subscribe({
-                    [TRY_NAVIGATE]: (hx, {path}) => 
+                    [NAVIGATE]: (hx, {path}) => 
                         rt === path 
                             ? hx.class('selected') 
                             : hx.removeClass('selected'),
@@ -143,10 +141,6 @@ const NavUnlocked = () => {
 
 export const Nav = () =>
     html()
-        .div()
-        .use(NavDispatcher)
-        // .tap(hx => console.log(hx[Symbol.for('target-elem')].store))
-        .nest()
         .concat(
             getPublicKey() 
                 ? NavUnlocked() 

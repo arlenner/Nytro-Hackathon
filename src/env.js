@@ -1,6 +1,6 @@
 //App Data Goes Here
 
-export const NYZO_API_URL   = 'https://tokens.nyzo.today/api'
+export const NYZO_API_URL   = 'http://localhost:8010/proxy'
 export const SERVER_URL     = 'http://localhost:3000'
 
 //tag route names below as string literal consts
