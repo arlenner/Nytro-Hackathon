@@ -24,18 +24,18 @@ const isNoSelection = selection => selection && selection.key && selection.key =
 const ReadyButton = ({client}) => 
     html()
         .button()
-            .class('ready', 'hide-low')
-            .text('Choose...')
-            .disabled()
-            .on('click', (hx) => hx.dispatch(SHARED_ACTIONS.CLIENT_READY))
-            .subscribe({
-                [SHARED_ACTIONS.CLIENT_CHOOSE]: (hx) =>
-                    isNoSelection(client.currentSelection) 
-                        ? hx.text('Ready!').removeAttr('disabled') 
-                        : hx.text('Choose...').attr('disabled'),
+        .class('ready', 'hide-low')
+        .text('Choose...')
+        .disabledAttr(true)
+        .on('click', (hx) => hx.dispatch(CLIENT_READY))
+        .subscribe({
+            [CLIENT_CHOOSE]: (hx) =>
+                isNoSelection(client.currentSelection) 
+                    ? hx.text('Ready!').removeAttr('disabled') 
+                    : hx.text('Choose...').attr('disabled'),
 
-                [SHARED_ACTIONS.WAIT_FOR_GAME]: (hx) => hx.removeClass('hide-low')
-            })
+            [SHARED_ACTIONS.WAIT_FOR_GAME]: (hx) => hx.removeClass('hide-low')
+        })
 
 const InterfaceBar = (gamestate) => 
     html()

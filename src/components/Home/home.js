@@ -59,12 +59,12 @@ const Dot = i =>
     html()
         .div()
         .use(HomeDispatcher)
-        .class(i === HomeDispatcher.state() ? 'dot-sel' : 'dot')
+        .class(i === HomeDispatcher.state().panelIndex % panels.length ? 'dot-sel' : 'dot')
         .subscribe({
             [JUMBO_SWITCH]: (hx, {panelIndex}) =>
-                panelIndex === i    ? hx.removeClass('dot').class('dot-sel')
-            :   panelIndex !== i    ? hx.removeClass('dot-sel').class('dot')
-            :                         hx.removeClass('dot-sel').class('dot')
+                panelIndex % panels.length === i    ? hx.removeClass('dot').class('dot-sel')
+            :   panelIndex % panels.length !== i    ? hx.removeClass('dot-sel').class('dot')
+            :                                         hx.removeClass('dot-sel').class('dot')
         })
 
 const Dots = () => 
@@ -80,7 +80,7 @@ export const Home = () =>
             //adding 'column-reverse' flex direction to the 'outlet-main' class element. (try reordering Jumbo and Dots - dots updates funny.)
         .section()
         .class('outlet-main')
-        .css({flexDirection: 'column-reverse'})
+        // .css({flexDirection: 'column-reverse'})
         .nest()
-            .concat(Dots())
-            .concat(Jumbotron(HomeDispatcher.state()))
+        .concat(Jumbotron(HomeDispatcher.state()))
+        .concat(Dots())

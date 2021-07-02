@@ -27,7 +27,7 @@ const App = () =>
 
 //app entry
 App().mount('root')
-// navigate('/home')
+navigate('/home')
 
 
 //TODO: REMOVE THESE BEFORE RELEASE

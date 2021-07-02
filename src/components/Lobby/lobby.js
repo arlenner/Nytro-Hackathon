@@ -1,4 +1,5 @@
 import { html } from 'olive-spa'
+import { LobbyDispatcher, TRY_JOIN_GAME, UPDATE_LOBBY, CREATE_GAME, REQUEST_ROOMS, WAIT_FOR_GAME } from './lobby-dispatcher'
 import './lobby.css'
 
 const RoomsList = () => {
@@ -8,6 +9,7 @@ const RoomsList = () => {
         .h2()
         .text('Available Games:')
         .ul()
+        .use(LobbyDispatcher)
         .class('rooms-list')
         .subscribe({
             [UPDATE_LOBBY]: (hxa, {lobby}) => 
@@ -15,19 +17,20 @@ const RoomsList = () => {
                     html()
                         .ul()
                         .class('rooms-list')
-                        .open()
+                        .nest()
                             .each(lobby.rooms, (hx, room) => 
                                 hx.li()
                                 .class('rooms-item')
-                                .open()
+                                .nest()
                                     .div()
                                     .class('room-host')
                                     .text(room.id)
 
                                     .button()
+                                    .use(LobbyDispatcher)
                                     .class('join-btn')
                                     .text('=>')
-                                    .on('click', hx => hx.dispatch(ACTIONS.TRY_JOIN_GAME, room))
+                                    .on('click', hx => hx.dispatch(TRY_JOIN_GAME, room))
                             )
                 ),
         })
@@ -46,7 +49,7 @@ const HostButton = (client) =>
         .button()
         .class('host-btn')
         .text('New Game...')
-        .on('click', hx => hx.dispatch(ACTIONS.CREATE_GAME, client))
+        .on('click', hx => hx.dispatch(CREATE_GAME, client))
 
 
 export const Lobby = (model, rooms) => 
@@ -54,9 +57,9 @@ export const Lobby = (model, rooms) =>
         .div()
         .class('rooms-container')
         .subscribe({
-            [ACTIONS.UPDATE_LOBBY]: (hx, { lobby }) => hx.replace(Lobby(model, lobby.rooms)),
+            [UPDATE_LOBBY]: (hx, { lobby }) => hx.replace(Lobby(model, lobby.rooms)),
 
-            [ACTIONS.WAIT_FOR_GAME]: hx => hx.delete()
+            [WAIT_FOR_GAME]: hx => hx.delete()
         })
         .open()
             .concat(
@@ -69,7 +72,7 @@ Lobby.Loader = model =>
         .div()
         .class('spinner')           
         .subscribe({
-            [ACTIONS.UPDATE_LOBBY]: (hx, { lobby }) => hx.replace(Lobby(model, lobby.rooms))
+            [UPDATE_LOBBY]: (hx, { lobby }) => hx.replace(Lobby(model, lobby.rooms))
         })            
-        .tap(hx => hx.dispatch(ACTIONS.REQUEST_ROOMS))
+        .tap(hx => hx.dispatch(REQUEST_ROOMS))
             
