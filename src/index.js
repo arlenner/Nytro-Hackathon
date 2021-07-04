@@ -1,5 +1,5 @@
 import { html, navigate } from 'olive-spa'
-import { SHARED_ACTIONS, CREATE_RT, HOME_RT, LIB_RT, PLAY_RT } from './env'
+import { CREATE_RT, HOME_RT, LIB_RT, PLAY_RT } from './env'
 //components
 import { Nav } from './components/Nav/nav'
 import { Lib } from './components/Library/library'

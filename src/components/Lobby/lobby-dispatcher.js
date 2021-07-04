@@ -1,4 +1,7 @@
 import { customDispatcher, pipeMiddleware } from "olive-spa";
+import { html } from "olive-spa/dist/html/html";
+import { GLOBAL_SOCKET as socket } from "../../env";
+
 
 export const UPDATE_LOBBY   = 'Update Lobby',
              TRY_JOIN_GAME  = 'Try Join Game',
@@ -7,15 +10,12 @@ export const UPDATE_LOBBY   = 'Update Lobby',
              REQUEST_ROOMS  = 'Request Rooms'
 
 const model = {
-    games: []
+    rooms: []
 }
 
-//reducer always has this format
-//const myReducer = (model, [k, data]) =>
-//  k === ACTION ? reducerForAction(k, data)
-//: /*else*/       model
 const reducer = (model, [k, data]) => 
     model
+
 
 const fxLobbyLogger = (model, action) => {
     const [k, data] = action
@@ -23,7 +23,16 @@ const fxLobbyLogger = (model, action) => {
     return action
 }
 
-const mw = pipeMiddleware(fxLobbyLogger)
+const fxRequestRooms = (model, action) => {
+    const [k, data] = action
+    if(k === REQUEST_ROOMS) {
+        socket.emit('request-rooms')
+    }
+
+    return action
+}
+
+const mw = pipeMiddleware(fxLobbyLogger, fxRequestRooms)
 
 export const LobbyDispatcher = customDispatcher({
     id: 'LobbyDispatcher',

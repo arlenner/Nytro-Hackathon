@@ -3732,10 +3732,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-olive-spa@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/olive-spa/-/olive-spa-4.3.1.tgz#3bf674e237996b0ffa42676092361cf73fe3aed5"
-  integrity sha512-ftPslYytcCzePZ11UUhZK9JUxC/9bgM7nI6696vGjiFgODhiYaxcIDrHd+GyLlC8+Y7QiSJd3hdan/DjG0Xfnw==
+olive-spa@^4.3.102:
+  version "4.3.102"
+  resolved "https://registry.yarnpkg.com/olive-spa/-/olive-spa-4.3.102.tgz#23098ee67424bff7f5faa06f6110f0037fa138b2"
+  integrity sha512-jVbAwuvvPqmRgffCzzYJ4PqHw2e4ULDJaCHQphPKoneIY51R25GYjMcrtQOuP5vqh5YMaAnuk4s1eAbxEI0ouA==
 
 on-finished@~2.3.0:
   version "2.3.0"

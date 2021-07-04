@@ -117,7 +117,7 @@ const NavUnlocked = () => {
                 hx
                 .a()
                 .use(NavDispatcher)
-                .class('enabled-link')
+                .class('enabled-link', rt === NavDispatcher.state().path ? 'selected' : undefined)
                 .text(rt.slice(1).toUpperCase())
                 .hrefAttr('#')
                 .on(
