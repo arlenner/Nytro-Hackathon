@@ -1,21 +1,22 @@
 import { html } from 'olive-spa'
 import { useState } from '../../utils/useState'
+import { CreateDispatcher, ADD_COMPONENT, ADD_SUCCESS } from './create-dispatcher'
 import './create.css'
 
-const EditorOutput = (editor) =>
+const EditorOutput = () =>
     html()
         .div()
         .class('output-card')
         .nest()
             .h3()
-            .text(editor.title)
-            .each(editor.components, (hx, comp) =>
-                hx
-                    .h4()
-                    .text(comp.tag.split(/[A-Z]/).join(' '))
-                    .div()
-                    .class('editor-component')
-            )
+            .text("editor.title")
+            // .each(editor.components, (hx, comp) =>
+            //     hx
+            //         .h4()
+            //         .text(comp.tag.split(/[A-Z]/).join(' '))
+            //         .div()
+            //         .class('editor-component')
+            // )
 
 const ModifyInstantComponent = () =>
     html()
@@ -28,16 +29,16 @@ const ConditionalComponent = () =>
 
 const AddComponentButton = () => {
 
-    const [numComps, setNumComps] = useState(0)
+    //const [numComps, setNumComps] = useState(0)
 
     return html()
         .button()
+        .use(CreateDispatcher)
         .text('+')
         .class('add-cmp-btn')
-        .on('click', hx => {
-            if(numComps() >= 3) return
-            setNumComps(numComps()+1)
-            hx.insertBefore(ComponentContainer())
+        .on('click', hx => hx.dispatch(ADD_COMPONENT, CreateDispatcher.state()))
+        .subscribe({
+            [ADD_SUCCESS]: hx => hx.concat(ComponentContainer())
         })
 }
         
@@ -52,7 +53,7 @@ const ComponentContainer = () =>
             .select()
         
 
-const EditorForm = editor => 
+const EditorForm = () => 
     html()
         .div()
         .class('editor-form').nest()
@@ -60,14 +61,14 @@ const EditorForm = editor =>
             .p()
             .text('TITLE')
             .input()
-            .type('text')
-            .placeholder('<title>')
+            .typeAttr('text')
+            .placeholderAttr('<title>')
             .class('editor-input')
             //img
             .p()
             .text('IMAGE URL')
             .input()
-            .type('text')
+            .typeAttr('text')
             .class('editor-input')
             //components
             .div()
@@ -83,19 +84,20 @@ const EditorDivider = () =>
         .div()
         .class('editor-divider')
 
-const EditorContainer = (editor) => 
+const EditorContainer = () => 
     html()
         .div()
         .class('editor-container')
         .nest()
-            .concat(EditorOutput(editor))
+            .concat(EditorOutput())
             .concat(EditorDivider())
-            .concat(EditorForm(editor))
+            .concat(EditorForm())
             
 
-export const Create = ({editor}) => 
+export const Create = () => 
     html()
         .section()
         .class('outlet-main')
         .nest()
-            .concat(EditorContainer(editor))
+            .concat(EditorContainer())
+    
