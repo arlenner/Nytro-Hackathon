@@ -1,11 +1,5 @@
 
-/**
- * Player data model constructor
- * @param {string} name 
- */
-export function Player(name, id) {
-    this.socketId = id
-    this.name = name
+export function PartialPlayer() {
     this.currentSelection = { key: 'no' }
     this.ready = false
     this.stats = [
@@ -27,3 +21,15 @@ export function Player(name, id) {
     ]
     this.cards = []
 }
+
+/** 
+ * Player data model constructor
+ * @param {string} name 
+ */
+export function Player(name, id) {
+    this.socketId = id
+    this.name = name
+    PartialPlayer.call(this)
+}
+
+

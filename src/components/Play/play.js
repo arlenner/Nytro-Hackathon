@@ -1,7 +1,7 @@
 import { html } from 'olive-spa'
-import './play.css'
-import { SHARED_ACTIONS } from '../../env'
 import { Lobby } from '../Lobby/lobby'
+import { PlayDispatcher, CLIENT_CHOOSE, WAIT_FOR_GAME, CLIENT_READY} from './play-dispatcher'
+import './play.css'
 
 const controls = [
     {
@@ -24,9 +24,10 @@ const isNoSelection = selection => selection && selection.key && selection.key =
 const ReadyButton = ({client}) => 
     html()
         .button()
+        .use(PlayDispatcher)
         .class('ready', 'hide-low')
         .text('Choose...')
-        .disabledAttr(true)
+        .attr('disabled')
         .on('click', (hx) => hx.dispatch(CLIENT_READY))
         .subscribe({
             [CLIENT_CHOOSE]: (hx) =>
@@ -34,7 +35,7 @@ const ReadyButton = ({client}) =>
                     ? hx.text('Ready!').removeAttr('disabled') 
                     : hx.text('Choose...').attr('disabled'),
 
-            [SHARED_ACTIONS.WAIT_FOR_GAME]: (hx) => hx.removeClass('hide-low')
+            [WAIT_FOR_GAME]: (hx) => hx.removeClass('hide-low')
         })
 
 const InterfaceBar = (gamestate) => 
@@ -42,27 +43,28 @@ const InterfaceBar = (gamestate) =>
         .footer()
         .class('hide-low')
         .subscribe({
-            [SHARED_ACTIONS.WAIT_FOR_GAME]: (hx) => hx.removeClass('hide-low')
+            [WAIT_FOR_GAME]: (hx) => hx.removeClass('hide-low')
         })
-        .open()
-            .each(controls, (html, {display, key}) => 
-                html.button()
-                    .class('btn-ctrl')
-                    .on('click', (hx) => 
-                        hx.dispatch(SHARED_ACTIONS.CLIENT_CHOOSE, getStat(gamestate, key))
-                    )
-                    .subscribe({
-                        [SHARED_ACTIONS.CLIENT_CHOOSE]: (hx, {gamestate}) => 
-                            gamestate.client.currentSelection.name === key ? hx.class('btn-ctrl-selected')
-                        :   /*else*/                                         hx.removeClass('btn-ctrl-selected')
-                    })
-                    .open()
+        .nest()
+            .each(controls, (hx, {display, key}) => 
+                hx
+                .button()
+                .class('btn-ctrl')
+                .on('click', (hx) => 
+                    hx.dispatch(CLIENT_CHOOSE, getStat(gamestate, key))
+                )
+                .subscribe({
+                    [CLIENT_CHOOSE]: (hx, {gamestate}) => 
+                        gamestate.client.currentSelection.name === key ? hx.class('btn-ctrl-selected')
+                    :   /*else*/                                         hx.removeClass('btn-ctrl-selected')
+                })
+                .nest()                    
+                    .div()
+                    .class(key+'-icon', 'btn-bg')
+                    .nest()
                         .div()
-                        .class(key+'-icon', 'btn-bg')
-                        .open()
-                            .div()
-                            .class('btn-txt')
-                            .text(`${display} | ${getStat(gamestate, key).value}`)
+                        .class('btn-txt')
+                        .text(`${display} | ${getStat(gamestate, key).value}`)
             )
 
 const HUD = () => 
@@ -70,14 +72,19 @@ const HUD = () =>
         .div()
         .class('hud', 'hide-low')
         .subscribe({
-            [SHARED_ACTIONS.WAIT_FOR_GAME]: hx => hx.removeClass('hide-low')
+            [WAIT_FOR_GAME]: hx => hx.removeClass('hide-low')
         })
 
 
-export const Play = ({gamestate}) => 
-    html()
-        .section().class('outlet-main').open()
+export const Play = () => {
+    const gamestate = PlayDispatcher.state()
+
+    return html()
+        .section()
+        .class('outlet-main')
+        .nest()
             .concat(HUD(gamestate))                                 
             .concat(InterfaceBar(gamestate))
             .concat(ReadyButton(gamestate))
             .concat(Lobby.Loader(gamestate))
+}

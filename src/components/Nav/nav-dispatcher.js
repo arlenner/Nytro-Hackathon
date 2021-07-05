@@ -66,7 +66,7 @@ export const NavDispatcher = customDispatcher({
     id: 'NavDispatcher',
     model: {
         locked: true, 
-        path: '/'       
+        path: '/home'       
     },
     reducer,
     mw

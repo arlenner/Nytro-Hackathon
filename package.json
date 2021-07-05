@@ -32,7 +32,7 @@
         "node-int64": "^0.4.0",
         "node-polyfill-webpack-plugin": "^1.1.2",
         "nyzostrings": "^0.0.9",
-        "olive-spa": "^4.3.1",
+        "olive-spa": "^4.3.102",
         "process": "^0.11.10",
         "socket.io-client": "^4.1.2",
         "stream-browserify": "^3.0.0",

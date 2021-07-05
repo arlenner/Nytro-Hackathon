@@ -56,7 +56,8 @@ const ComponentContainer = () =>
 const EditorForm = () => 
     html()
         .div()
-        .class('editor-form').nest()
+        .class('editor-form')
+        .nest()
             //title
             .p()
             .text('TITLE')

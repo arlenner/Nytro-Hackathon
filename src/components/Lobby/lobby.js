@@ -1,4 +1,5 @@
 import { html } from 'olive-spa'
+import { PlayDispatcher } from '../Play/play-dispatcher'
 import { LobbyDispatcher, TRY_JOIN_GAME, UPDATE_LOBBY, CREATE_GAME, REQUEST_ROOMS, WAIT_FOR_GAME } from './lobby-dispatcher'
 import './lobby.css'
 
@@ -12,13 +13,13 @@ const RoomsList = () => {
         .use(LobbyDispatcher)
         .class('rooms-list')
         .subscribe({
-            [UPDATE_LOBBY]: (hxa, {lobby}) => 
-                hxa.replace(
+            [UPDATE_LOBBY]: (hx, rooms) => 
+                hx.replace(
                     html()
                         .ul()
                         .class('rooms-list')
                         .nest()
-                            .each(lobby.rooms, (hx, room) => 
+                            .each(rooms, (hx, room) => 
                                 hx.li()
                                 .class('rooms-item')
                                 .nest()
@@ -47,32 +48,37 @@ const RoomsListEmpty = () =>
 const HostButton = (client) =>
     html()
         .button()
+        .use(LobbyDispatcher)
         .class('host-btn')
         .text('New Game...')
         .on('click', hx => hx.dispatch(CREATE_GAME, client))
 
 
-export const Lobby = (model, rooms) => 
+export const Lobby = rooms => 
     html()
         .div()
+        .use(LobbyDispatcher)
         .class('rooms-container')
         .subscribe({
-            [UPDATE_LOBBY]: (hx, { lobby }) => hx.replace(Lobby(model, lobby.rooms)),
+            [UPDATE_LOBBY]: (hx, { rooms }) => hx.replaceWith(Lobby(rooms)),
 
-            [WAIT_FOR_GAME]: hx => hx.delete()
+            [WAIT_FOR_GAME]: hx => hx.remove()
         })
-        .open()
+        .nest()
             .concat(
-                rooms.length > 0 ? RoomsList() : RoomsListEmpty()
+                rooms.length > 0 
+                    ? RoomsList() 
+                    : RoomsListEmpty()
             )
-            .concat(HostButton(model.client))
+            .concat(HostButton(PlayDispatcher.state().client))
 
-Lobby.Loader = model =>
+Lobby.Loader = () =>
     html()
         .div()
+        .use(LobbyDispatcher)
         .class('spinner')           
         .subscribe({
-            [UPDATE_LOBBY]: (hx, { lobby }) => hx.replace(Lobby(model, lobby.rooms))
+            [UPDATE_LOBBY]: (hx, { rooms }) => hx.replaceWith(Lobby(rooms))
         })            
         .tap(hx => hx.dispatch(REQUEST_ROOMS))
             
