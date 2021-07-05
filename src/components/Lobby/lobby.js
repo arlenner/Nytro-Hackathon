@@ -3,40 +3,32 @@ import { PlayDispatcher } from '../Play/play-dispatcher'
 import { LobbyDispatcher, TRY_JOIN_GAME, UPDATE_LOBBY, CREATE_GAME, REQUEST_ROOMS, WAIT_FOR_GAME } from './lobby-dispatcher'
 import './lobby.css'
 
-const RoomsList = () => {
-    console.log('called rooms list renderer')
-    
+const RoomsList = rooms => {
+
     return html()
         .h2()
         .text('Available Games:')
+        
         .ul()
         .use(LobbyDispatcher)
         .class('rooms-list')
-        .subscribe({
-            [UPDATE_LOBBY]: (hx, rooms) => 
-                hx.replace(
-                    html()
-                        .ul()
-                        .class('rooms-list')
-                        .nest()
-                            .each(rooms, (hx, room) => 
-                                hx.li()
-                                .class('rooms-item')
-                                .nest()
-                                    .div()
-                                    .class('room-host')
-                                    .text(room.id)
+        .nest()
+            .each(rooms, (hx, room) => 
+                hx
+                .li()
+                .class('rooms-item')
+                .nest()
+                    .div()
+                    .class('room-host')
+                    .text(room.id)
 
-                                    .button()
-                                    .use(LobbyDispatcher)
-                                    .class('join-btn')
-                                    .text('=>')
-                                    .on('click', hx => hx.dispatch(TRY_JOIN_GAME, room))
-                            )
-                ),
-        })
-        
-    }
+                    .button()
+                    .use(LobbyDispatcher)
+                    .class('join-btn')
+                    .text('=>')
+                    .on('click', hx => hx.dispatch(TRY_JOIN_GAME, room))
+            )
+}
 
 const RoomsListEmpty = () => 
     html()
@@ -67,7 +59,7 @@ export const Lobby = rooms =>
         .nest()
             .concat(
                 rooms.length > 0 
-                    ? RoomsList() 
+                    ? RoomsList(rooms) 
                     : RoomsListEmpty()
             )
             .concat(HostButton(PlayDispatcher.state().client))

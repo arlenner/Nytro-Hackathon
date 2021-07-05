@@ -1,6 +1,6 @@
-import { html } from 'olive-spa'
+import { customDispatcher, html } from 'olive-spa'
 import { io } from 'socket.io-client'
-import { LobbyDispatcher, UPDATE_LOBBY } from './components/Lobby/lobby-dispatcher'
+import { CREATE_SUCCESS, LobbyDispatcher, UPDATE_LOBBY } from './components/Lobby/lobby-dispatcher'
 
 //App Data Goes Here
 
@@ -26,8 +26,8 @@ export const ROUTES = [
 
 //SOCKET STUFF
 export const GLOBAL_SOCKET = io(SERVER_URL)
-GLOBAL_SOCKET.on('connection', (id) => console.log(id))
 GLOBAL_SOCKET.on('update-lobby', (lobby) => html().dispatch(UPDATE_LOBBY, lobby, [LobbyDispatcher]))
+GLOBAL_SOCKET.on('created-game', () => html().dispatch(CREATE_SUCCESS, null, [LobbyDispatcher]))
 
 
 export const SOCKET_MSG = {
